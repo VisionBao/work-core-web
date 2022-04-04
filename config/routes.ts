@@ -1,4 +1,4 @@
-﻿export default [
+export default [
   {
     path: '/user',
     layout: false,
@@ -51,6 +51,12 @@
   {
     path: '/',
     redirect: '/welcome',
+  },
+  {
+    name: 'list.new-key',
+    icon: 'smile',
+    path: '/add-keys',
+    component: './AddKeys',
   },
   {
     component: './404',
