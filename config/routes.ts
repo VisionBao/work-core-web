@@ -59,6 +59,12 @@ export default [
     component: './AddKeys',
   },
   {
+    name: '标准列表',
+    icon: 'smile',
+    path: '/project-list',
+    component: './ProjectList',
+  },
+  {
     component: './404',
   },
 ];

@@ -1,6 +1,6 @@
 // https://umijs.org/config/
 import { defineConfig } from 'umi';
-import { join } from 'path';
+// import { join } from 'path';
 
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
@@ -55,13 +55,14 @@ export default defineConfig({
     {
       requestLibPath: "import { request } from 'umi'",
       // 或者使用在线的版本
-      // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
-      schemaPath: join(__dirname, 'oneapi.json'),
+      schemaPath: 'http://127.0.0.1:8000/openapi.json',
+      // schemaPath: join(__dirname, 'oneapi.json'),
+      projectName: 'work-core-api',
       mock: false,
     },
     {
       requestLibPath: "import { request } from 'umi'",
-      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
+      schemaPath: 'http://127.0.0.1:8000/openapi.json',
       projectName: 'swagger',
     },
   ],
