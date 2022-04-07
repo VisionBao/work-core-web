@@ -1,5 +1,11 @@
 import type { FC } from 'react';
-import { ModalForm, ProFormSelect, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
+import {
+  ModalForm,
+  ProFormSelect,
+  ProFormDateTimePicker,
+  ProFormText,
+  ProFormTextArea,
+} from '@ant-design/pro-form';
 import type { BasicListItemDataType } from '../data.d';
 import styles from '../style.less';
 import { Button, Result } from 'antd';
@@ -20,7 +26,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   return (
     <ModalForm<BasicListItemDataType>
       visible={visible}
-      title={done ? null : `项目${current ? '编辑' : '添加'}`}
+      title={done ? null : `任务${current ? '编辑' : '添加'}`}
       className={styles.standardListForm}
       width={640}
       onFinish={async (values) => {
@@ -40,35 +46,26 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       {!done ? (
         <>
           <ProFormText
-            name="name"
-            label="项目名称"
-            rules={[{ required: true, message: '请输入项目名称' }]}
-            placeholder="项目名称"
+            name="title"
+            label="任务名称"
+            rules={[{ required: true, message: '请输入任务名称' }]}
+            placeholder="请输入"
           />
-          <ProFormText
-            name="symbol"
-            label="请输入项目代号（e.g. nano）"
-            rules={[{ required: true, message: '请输入项目代号' }]}
-            placeholder="项目代号"
-          />
-          <ProFormSelect
-            name={'lang_default'}
-            label="请选择项目主语言"
-            rules={[{ required: true, message: '请选择项目主语言' }]}
-            showSearch
-            placeholder="选择主语言"
-            valueEnum={{
-              open: '中文',
-              closed: '英文',
+          <ProFormDateTimePicker
+            name="createdAt"
+            label="开始时间"
+            rules={[{ required: true, message: '请选择开始时间' }]}
+            fieldProps={{
+              style: {
+                width: '100%',
+              },
             }}
+            placeholder="请选择"
           />
           <ProFormSelect
-            name={'langs'}
-            label="请选择项目支持语言"
-            rules={[{ required: true, message: '请选择项目支持语言' }]}
-            showSearch
-            mode={'multiple'}
-            placeholder="选择支持语言"
+            name="owner"
+            label="任务负责人"
+            rules={[{ required: true, message: '请选择任务负责人' }]}
             options={[
               {
                 label: '付晓晓',
@@ -79,11 +76,12 @@ const OperationModal: FC<OperationModalProps> = (props) => {
                 value: 'mao',
               },
             ]}
+            placeholder="请选择管理员"
           />
           <ProFormTextArea
             name="subDescription"
-            label="项目描述"
-            rules={[{ message: '请输入至少五个字符的项目描述！', min: 5 }]}
+            label="产品描述"
+            rules={[{ message: '请输入至少五个字符的产品描述！', min: 5 }]}
             placeholder="请输入至少五个字符"
           />
         </>
