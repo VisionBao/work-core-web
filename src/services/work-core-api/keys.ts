@@ -38,7 +38,7 @@ export async function getKeysApiV1KeysGetKeysGet(
   params: API.getKeysApiV1KeysGetKeysGetParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Key_>('/api/v1/keys/get-keys', {
+  return request<API.RestfulModelListModel_>('/api/v1/keys/get-keys', {
     method: 'GET',
     params: {
       // limit has a default value: 100
@@ -55,7 +55,7 @@ export async function getKeysApiV1KeysGetKeysByProjectIdGet(
   params: API.getKeysApiV1KeysGetKeysByProjectIdGetParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Key_>('/api/v1/keys/get_keys_by_project_id', {
+  return request<API.RestfulModelListModel_>('/api/v1/keys/get_keys_by_project_id', {
     method: 'GET',
     params: {
       // limit has a default value: 100
@@ -72,7 +72,7 @@ export async function getKeysApiV1KeysGetKeysByPageIdGet(
   params: API.getKeysApiV1KeysGetKeysByPageIdGetParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Key_>('/api/v1/keys/get_keys_by_page_id', {
+  return request<API.RestfulModelListModel_>('/api/v1/keys/get_keys_by_page_id', {
     method: 'GET',
     params: {
       // limit has a default value: 100

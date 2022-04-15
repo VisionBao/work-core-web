@@ -41,8 +41,6 @@ export async function getProjectApiV1ProjectsProjectsGet(
   return request<API.RestfulModelListModel_>('/api/v1/projects/projects', {
     method: 'GET',
     params: {
-      // limit has a default value: 100
-      limit: '100',
       ...params,
     },
     ...(options || {}),

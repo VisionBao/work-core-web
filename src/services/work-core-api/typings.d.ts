@@ -213,74 +213,6 @@ declare namespace API {
     host?: string;
   };
 
-  type Key_ = {
-    /** Success */
-    success?: boolean;
-    /** Data */
-    data?: Key[];
-    /** Errorcode */
-    errorCode?: string;
-    /** Errormessage */
-    errorMessage?: string;
-    /** Showtype */
-    showType?: string;
-    /** Traceid */
-    traceId?: string;
-    /** Host */
-    host?: string;
-  };
-
-  type Language_ = {
-    /** Success */
-    success?: boolean;
-    /** Data */
-    data?: Language[];
-    /** Errorcode */
-    errorCode?: string;
-    /** Errormessage */
-    errorMessage?: string;
-    /** Showtype */
-    showType?: string;
-    /** Traceid */
-    traceId?: string;
-    /** Host */
-    host?: string;
-  };
-
-  type Page_ = {
-    /** Success */
-    success?: boolean;
-    /** Data */
-    data?: Page[];
-    /** Errorcode */
-    errorCode?: string;
-    /** Errormessage */
-    errorMessage?: string;
-    /** Showtype */
-    showType?: string;
-    /** Traceid */
-    traceId?: string;
-    /** Host */
-    host?: string;
-  };
-
-  type Value_ = {
-    /** Success */
-    success?: boolean;
-    /** Data */
-    data?: Value[];
-    /** Errorcode */
-    errorCode?: string;
-    /** Errormessage */
-    errorMessage?: string;
-    /** Showtype */
-    showType?: string;
-    /** Traceid */
-    traceId?: string;
-    /** Host */
-    host?: string;
-  };
-
   type ValidationError = {
     /** Location */
     loc: string[];
@@ -315,19 +247,19 @@ declare namespace API {
   };
 
   type getKeysApiV1KeysGetKeysGetParams = {
-    skip?: number;
+    current?: number;
     limit?: number;
   };
 
   type getKeysApiV1KeysGetKeysByProjectIdGetParams = {
     project_id: number;
-    skip?: number;
+    current?: number;
     limit?: number;
   };
 
   type getKeysApiV1KeysGetKeysByPageIdGetParams = {
     page_id: number;
-    skip?: number;
+    current?: number;
     limit?: number;
   };
 
@@ -357,7 +289,7 @@ declare namespace API {
   };
 
   type getProjectApiV1ProjectsProjectsGetParams = {
-    skip?: number;
+    current?: number;
     limit?: number;
   };
 

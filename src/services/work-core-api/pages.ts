@@ -38,7 +38,7 @@ export async function getPageApiV1PagesGetPagesGet(
   params: API.getPageApiV1PagesGetPagesGetParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Page_>('/api/v1/pages/get-pages', {
+  return request<API.RestfulModelListModel_>('/api/v1/pages/get-pages', {
     method: 'GET',
     params: {
       ...params,

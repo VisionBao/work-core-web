@@ -4,7 +4,7 @@ import { request } from 'umi';
 
 /** Get Languages GET /api/v1/languages/languages */
 export async function getLanguagesApiV1LanguagesLanguagesGet(options?: { [key: string]: any }) {
-  return request<API.Language_>('/api/v1/languages/languages', {
+  return request<API.RestfulModelListModel_>('/api/v1/languages/languages', {
     method: 'GET',
     ...(options || {}),
   });

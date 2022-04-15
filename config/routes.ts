@@ -43,7 +43,7 @@ export default [
     ],
   },
   {
-    name: '标准列表',
+    name: 'list.project-list',
     icon: 'smile',
     path: '/listbasiclist',
     component: './ListBasicList',
@@ -65,7 +65,7 @@ export default [
     component: './AddKeys',
   },
   {
-    name: '项目列表',
+    name: 'list.project-list',
     icon: 'smile',
     path: '/project-list',
     component: './ProjectList',

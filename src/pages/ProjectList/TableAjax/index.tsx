@@ -1,95 +1,61 @@
-import {FC, useEffect, useState} from "react";
+import { FC } from 'react';
 // import styles from "./index.less";
-import {Button, List, Table} from "antd";
-import {getProjectApiV1ProjectsProjectsGet} from '@/services/work-core-api/projects';
-import {PlusOutlined} from "@ant-design/icons";
-import {useRequest} from "@@/plugin-request/request";
-import {useAntdTable} from "ahooks";
-
-
-const getTableData = ({current,pageSize}): Promise<any> => {
-  return getProjectApiV1ProjectsProjectsGet({
-    skip: current,
-    limit: pageSize
-  })
-};
+import { Button } from 'antd';
+import { getProjectApiV1ProjectsProjectsGet } from '@/services/work-core-api/projects';
+import { PlusOutlined } from '@ant-design/icons';
+import { useAntdTable } from 'ahooks';
+import { Params } from 'ahooks/lib/useAntdTable/types';
+import type { ProColumns } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
 
 export const ProjectList: FC = () => {
-  const {tableProps} = useAntdTable(getTableData);
+  const getTableData = ({ current, pageSize }: Params[0]): Promise<any> => {
+    return getProjectApiV1ProjectsProjectsGet({
+      current: current,
+      limit: pageSize,
+    }).then((res) => res.data);
+  };
+  const { tableProps } = useAntdTable(getTableData);
 
-  const columns = [
+  const columns: ProColumns<API.Project>[] = [
     {
       title: 'name',
       dataIndex: 'name',
+      render: (_) => <a>{_}</a>,
     },
     {
-      title: 'email',
-      dataIndex: 'email',
+      title: 'symbol',
+      dataIndex: 'symbol',
     },
     {
-      title: 'phone',
-      dataIndex: 'phone',
+      title: 'lang_default',
+      dataIndex: 'lang_default',
     },
     {
-      title: 'gender',
-      dataIndex: 'gender',
+      title: 'langs',
+      dataIndex: 'langs',
+    },
+    {
+      title: 'content',
+      dataIndex: 'content',
     },
   ];
 
-  return <Table columns={columns} rowKey="email" {...tableProps} />;
-  const {
-    data,
-    loading,
-    mutate
-  } = useRequest(() => {
-    return getProjectApiV1ProjectsProjectsGet({
-      skip: 0,
-      limit: 100
-    });
-  });
-  const list = data || [];
-  const paginationProps = {
-    showSizeChanger: true,
-    showQuickJumper: true,
-    pageSize: 5,
-    total: list.length
-  };
   return (
     <div>
-      <List
-        size="large"
-        rowKey="id"
-        loading={loading}
-        pagination={paginationProps}
-        dataSource={list}
-        renderItem={(item: API.Project) => (
-          <List.Item>
-            <List.Item.Meta
-              title={<a href={item.symbol}>{item.name}</a>}
-              description={item.content}
-            />
-          </List.Item>
-        )}
-      />
+      <ProTable columns={columns} rowKey="id" {...tableProps} />
       <Button
         type="dashed"
         onClick={() => {
           // setVisible(true);
         }}
-        style={{width: '100%', marginBottom: 8}}
+        style={{ width: '100%', marginBottom: 8 }}
       >
-        <PlusOutlined/>
+        <PlusOutlined />
         添加
       </Button>
-      {/*<OperationModal*/}
-      {/*  done={done}*/}
-      {/*  visible={visible}*/}
-      {/*  current={current}*/}
-      {/*  onDone={handleDone}*/}
-      {/*  onSubmit={handleSubmit}*/}
-      {/*/>*/}
     </div>
-  )
-}
+  );
+};
 
 export default ProjectList;

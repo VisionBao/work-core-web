@@ -8,7 +8,7 @@ export async function getValuesByKeyApiV1ValuesGetValuesGet(
   params: API.getValuesByKeyApiV1ValuesGetValuesGetParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Value_>('/api/v1/values/get_values', {
+  return request<API.RestfulModelListModel_>('/api/v1/values/get_values', {
     method: 'GET',
     params: {
       ...params,
