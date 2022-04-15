@@ -33,6 +33,17 @@ declare namespace API {
     id: number;
   };
 
+  type ListModel = {
+    /** List */
+    list?: any;
+    /** Current */
+    current?: number;
+    /** Pagesize */
+    pageSize?: number;
+    /** Total */
+    total?: number;
+  };
+
   type Page = {
     /** Pid */
     pid?: number;
@@ -138,6 +149,22 @@ declare namespace API {
     host?: string;
   };
 
+  type RestfulModelListModel_ = {
+    /** Success */
+    success?: boolean;
+    data?: ListModel;
+    /** Errorcode */
+    errorCode?: string;
+    /** Errormessage */
+    errorMessage?: string;
+    /** Showtype */
+    showType?: string;
+    /** Traceid */
+    traceId?: string;
+    /** Host */
+    host?: string;
+  };
+
   type RestfulModelPage_ = {
     /** Success */
     success?: boolean;
@@ -225,23 +252,6 @@ declare namespace API {
     success?: boolean;
     /** Data */
     data?: Page[];
-    /** Errorcode */
-    errorCode?: string;
-    /** Errormessage */
-    errorMessage?: string;
-    /** Showtype */
-    showType?: string;
-    /** Traceid */
-    traceId?: string;
-    /** Host */
-    host?: string;
-  };
-
-  type Project_ = {
-    /** Success */
-    success?: boolean;
-    /** Data */
-    data?: Project[];
     /** Errorcode */
     errorCode?: string;
     /** Errormessage */

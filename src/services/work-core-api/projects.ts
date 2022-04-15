@@ -38,7 +38,7 @@ export async function getProjectApiV1ProjectsProjectsGet(
   params: API.getProjectApiV1ProjectsProjectsGetParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Project_>('/api/v1/projects/projects', {
+  return request<API.RestfulModelListModel_>('/api/v1/projects/projects', {
     method: 'GET',
     params: {
       // limit has a default value: 100

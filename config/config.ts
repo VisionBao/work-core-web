@@ -59,15 +59,11 @@ export default defineConfig({
       // schemaPath: join(__dirname, 'oneapi.json'),
       projectName: 'work-core-api',
       mock: false,
-    },
-    {
-      requestLibPath: "import { request } from 'umi'",
-      schemaPath: 'http://127.0.0.1:8000/openapi.json',
-      projectName: 'swagger',
-    },
+    }
   ],
   nodeModulesTransform: { type: 'none' },
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+
 });

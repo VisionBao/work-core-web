@@ -1,136 +1,95 @@
-import React from "react";
-import styles from "./index.less";
-import {message, Table} from "antd";
-// import reqwest from "reqwest";
-import { getProjectApiV1ProjectsProjectsGet } from '@/services/work-core-api/projects';
-import {history} from "@@/core/history";
+import {FC, useEffect, useState} from "react";
+// import styles from "./index.less";
+import {Button, List, Table} from "antd";
+import {getProjectApiV1ProjectsProjectsGet} from '@/services/work-core-api/projects';
+import {PlusOutlined} from "@ant-design/icons";
+import {useRequest} from "@@/plugin-request/request";
+import {useAntdTable} from "ahooks";
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: name => `${name.first} ${name.last}`,
-    width: "20%"
-  },
-  {
-    title: "Gender",
-    dataIndex: "gender",
-    filters: [
-      { text: "Male", value: "male" },
-      { text: "Female", value: "female" }
-    ],
-    width: "20%"
-  },
-  {
-    title: "Email",
-    dataIndex: "email"
-  }
-];
 
-class App extends React.Component {
-  state = {
-    data: [],
-    pagination: {},
-    loading: false
-  };
+const getTableData = ({current,pageSize}): Promise<any> => {
+  return getProjectApiV1ProjectsProjectsGet({
+    skip: current,
+    limit: pageSize
+  })
+};
 
-  componentDidMount() {
-    this.fetch();
-  }
+export const ProjectList: FC = () => {
+  const {tableProps} = useAntdTable(getTableData);
 
-  handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
-    pager.current = pagination.current;
-    this.setState({
-      pagination: pager
+  const columns = [
+    {
+      title: 'name',
+      dataIndex: 'name',
+    },
+    {
+      title: 'email',
+      dataIndex: 'email',
+    },
+    {
+      title: 'phone',
+      dataIndex: 'phone',
+    },
+    {
+      title: 'gender',
+      dataIndex: 'gender',
+    },
+  ];
+
+  return <Table columns={columns} rowKey="email" {...tableProps} />;
+  const {
+    data,
+    loading,
+    mutate
+  } = useRequest(() => {
+    return getProjectApiV1ProjectsProjectsGet({
+      skip: 0,
+      limit: 100
     });
-    this.fetch({
-      results: pagination.pageSize,
-      page: pagination.current,
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters
-    });
+  });
+  const list = data || [];
+  const paginationProps = {
+    showSizeChanger: true,
+    showQuickJumper: true,
+    pageSize: 5,
+    total: list.length
   };
-
-  fetch = async (params = {}) => {
-    console.log("params:", params);
-    this.setState({loading: true});
-    const msg = await getProjectApiV1ProjectsProjectsGet({});
-    var a = 1
-
-
-
-    // const handleSubmit = async (values: API.getProjectApiV1ProjectsProjectsGetParams) => {
-    //   try {
-    //     // 登录
-    //     const msg = await getProjectApiV1ProjectsProjectsGet({ });
-    //     if (msg.status === 'ok') {
-    //       const defaultLoginSuccessMessage = intl.formatMessage({
-    //         id: 'pages.login.success',
-    //         defaultMessage: '登录成功！',
-    //       });
-    //       message.success(defaultLoginSuccessMessage);
-    //       await fetchUserInfo();
-    //       /** 此方法会跳转到 redirect 参数所在的位置 */
-    //       if (!history) return;
-    //       const { query } = history.location;
-    //       const { redirect } = query as { redirect: string };
-    //       history.push(redirect || '/');
-    //       return;
-    //     }
-    //     console.log(msg);
-    //     // 如果失败去设置用户错误信息
-    //     setUserLoginState(msg);
-    //   } catch (error) {
-    //     const defaultLoginFailureMessage = intl.formatMessage({
-    //       id: 'pages.login.failure',
-    //       defaultMessage: '登录失败，请重试！',
-    //     });
-    //     message.error(defaultLoginFailureMessage);
-    //   }
-
-
-    // reqwest({
-    //   url: "https://randomuser.me/api",
-    //   method: "get",
-    //   data: {
-    //     results: 10,
-    //     ...params
-    //   },
-    //   type: "json"
-    // }).then(data => {
-    //   const pagination = { ...this.state.pagination };
-    //   // Read total count from server
-    //   // pagination.total = data.totalCount;
-    //   pagination.total = 200;
-    //   this.setState({
-    //     loading: false,
-    //     data: data.results,
-    //     pagination
-    //   });
-    // });
-  };
-
-  render() {
-    return (
-      <Table
-        columns={columns}
-        rowKey={record => record.login.uuid}
-        dataSource={this.state.data}
-        pagination={this.state.pagination}
-        loading={this.state.loading}
-        onChange={this.handleTableChange}
+  return (
+    <div>
+      <List
+        size="large"
+        rowKey="id"
+        loading={loading}
+        pagination={paginationProps}
+        dataSource={list}
+        renderItem={(item: API.Project) => (
+          <List.Item>
+            <List.Item.Meta
+              title={<a href={item.symbol}>{item.name}</a>}
+              description={item.content}
+            />
+          </List.Item>
+        )}
       />
-    );
-  }
+      <Button
+        type="dashed"
+        onClick={() => {
+          // setVisible(true);
+        }}
+        style={{width: '100%', marginBottom: 8}}
+      >
+        <PlusOutlined/>
+        添加
+      </Button>
+      {/*<OperationModal*/}
+      {/*  done={done}*/}
+      {/*  visible={visible}*/}
+      {/*  current={current}*/}
+      {/*  onDone={handleDone}*/}
+      {/*  onSubmit={handleSubmit}*/}
+      {/*/>*/}
+    </div>
+  )
 }
 
-export default () => (
-  <div className={styles.container}>
-    <div id="components-table-demo-ajax">
-      <App />
-    </div>
-  </div>
-);
+export default ProjectList;
