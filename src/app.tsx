@@ -6,6 +6,7 @@ import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
+import { getLanguagesApiV1LanguagesLanguagesGet } from '@/services/work-core-api/languages';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
 import defaultSettings from '../config/defaultSettings';
 
@@ -23,9 +24,15 @@ export const initialStateConfig = {
 export async function getInitialState(): Promise<{
   settings?: Partial<LayoutSettings>;
   currentUser?: API.CurrentUser;
+  languages?: API.Language[];
   loading?: boolean;
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
+  fetchLanguages?: () => Promise<API.Language[] | undefined>;
 }> {
+  const fetchLanguages = async () => {
+    const languages = await getLanguagesApiV1LanguagesLanguagesGet();
+    return languages.data ? languages.data.list : undefined;
+  };
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
@@ -38,14 +45,18 @@ export async function getInitialState(): Promise<{
   // 如果是登录页面，不执行
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo();
+    const languages = await fetchLanguages();
     return {
+      fetchLanguages,
       fetchUserInfo,
       currentUser,
+      languages,
       settings: defaultSettings,
     };
   }
   return {
     fetchUserInfo,
+    fetchLanguages,
     settings: defaultSettings,
   };
 }
