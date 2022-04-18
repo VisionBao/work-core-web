@@ -1,6 +1,6 @@
 import { PageContainer } from '@ant-design/pro-layout';
 // import styles from './index.less';
-import { Params } from 'ahooks/lib/useAntdTable/types';
+import type { Params } from 'ahooks/lib/useAntdTable/types';
 import {
   createProjectApiV1ProjectsAddProjectPost,
   getProjectApiV1ProjectsProjectsGet,
@@ -8,7 +8,8 @@ import {
 } from '@/services/work-core-api/projects';
 import { useAntdTable } from 'ahooks';
 import { useModel } from '@@/plugin-model/useModel';
-import ProTable, { ProColumns } from '@ant-design/pro-table';
+import type { ProColumns } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
 import { useState } from 'react';
 import { Button, Card, message, Popconfirm } from 'antd';
 import ProForm, {
